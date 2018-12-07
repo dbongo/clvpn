@@ -1,6 +1,7 @@
 require 'thor'
 require 'json'
 require 'erubis'
+require 'fileutils'
 
 module Clvpn
   BASE_PATH    = '/opt/ccui'                                              # Root directory
