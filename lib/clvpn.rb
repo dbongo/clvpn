@@ -2,6 +2,7 @@ require 'thor'
 require 'json'
 require 'erubis'
 require 'fileutils'
+require 'tty-tree'
 
 module Clvpn
   BASE_PATH    = '/opt/ccui'                                              # Root directory
@@ -24,10 +25,10 @@ module Clvpn
       puts Clvpn::VERSION
     end
 
-    desc 'write [SUBCOMMAND]', 'Create configuration files'
+    desc 'write', 'Create configuration files'
     subcommand 'write', Write
 
-    desc 'ca [SUBCOMMAND]', 'Manage certificate authority'
+    desc 'ca', 'Manage certificate authority'
     subcommand 'ca', Ca
   end
 end
