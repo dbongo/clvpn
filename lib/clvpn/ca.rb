@@ -1,5 +1,5 @@
 module Clvpn
-  class CA < Thor
+  class Ca < Thor
     desc 'status', 'Output info about certificate authority'
     def status
       out = { ca: nil }

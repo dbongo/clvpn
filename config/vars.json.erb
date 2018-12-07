@@ -1,0 +1,25 @@
+{
+  "vars": {
+    "easy_rsa": "/usr/share/easy-rsa",
+    "pkcs11tool": "pkcs11-tool",
+    "grep": "grep",
+    "pkcs11_module_path": "dummy",
+    "pkcs11_pin": "dummy",
+    "ca_expire": 3650,
+    "key_config": "/usr/share/easy-rsa/openssl-1.0.0.cnf",
+    "key_dir": "<%= @dir %>",
+    "key_size": <%= @size %>,
+    "key_expire": 3650,
+    "key_country": "<%= @country %>",
+    "key_province": "<%= @province %>",
+    "key_city": "<%= @city %>",
+    "key_org": "<%= @org %>",
+    "key_email": "<%= @email %>",
+    "key_ou": "<%= @ou %>",
+    "key_name": "<%= @name %>",
+    "openvpn": "/usr/sbin/openvpn",
+    "openssl": "/usr/bin/openssl",
+    "bt_hw_tls": "1",
+    "bt_cryptodev": "1"
+  }
+}

@@ -1,34 +1,32 @@
 require 'thor'
 require 'json'
+require 'erubis'
 
 module Clvpn
-  # Root directory
-  BASE_PATH    = '/opt/ccui'
+  BASE_PATH    = '/opt/ccui'                                              # Root directory
+  CONFIG_FILE  = File.join(BASE_PATH, 'clvpn.json')                       # Config file
+  VARS_TEMP    = File.expand_path("../../config/vars.json.erb", __FILE__) # Template for CA env vars
+  CA_PATH      = File.join(BASE_PATH, 'certificate-authority')            # CA directory
+  SERVERS_PATH = File.join(CA_PATH, 'servers')                            # Server certs directory
+  CLIENTS_PATH = File.join(CA_PATH, 'clients')                            # Client certs directory
 
-  # Config file
-  CONFIG       = File.join(BASE_PATH, 'clvpn.json')
+  LIBRARY_PATH = File.join(File.dirname(__FILE__), 'clvpn')               # Require Clvpn base files
+  %w[ca write version].each do |lib|
+    require File.join(LIBRARY_PATH, lib)
+  end
 
-  # CA directory
-  CA_PATH      = File.join(BASE_PATH, 'certificate-authority')
+  class CLI < Thor
+    # [version] Returns the current version of the Clvpn gem
+    map '-v' => :version
+    desc 'version', 'Display installed Clvpn version'
+    def version
+      puts Clvpn::VERSION
+    end
 
-  # Server certs directory
-  SERVERS_PATH = File.join(CA_PATH, 'servers')
+    desc 'write [SUBCOMMAND]', 'Create configuration files'
+    subcommand 'write', Write
 
-  # Client certs directory
-  CLIENTS_PATH = File.join(CA_PATH, 'clients')
-
-  # DB directory
-  # DB_PATH    = '/var/db/clvpn'
-
-  # DB file
-  # DATABASE   = File.join(DB_PATH, 'clvpn.sqlite3')
-
-  # Require Clvpn base files
-  LIBRARY_PATH = File.join(File.dirname(__FILE__), 'clvpn')
-  %w[
-    ca
-    write
-    cli
-    version
-  ].each { |lib| require File.join(LIBRARY_PATH, lib) }
+    desc 'ca [SUBCOMMAND]', 'Manage certificate authority'
+    subcommand 'ca', Ca
+  end
 end
